@@ -144,7 +144,7 @@ struct SettingsView: View {
 
                 HStack {
                     Image(systemName: "checkmark.shield")
-                    Text("All scan results stay on this Mac")
+                    Text("Scanning stays local. AI analysis sends the previewed summary to Codex.")
                 }
                 .font(.caption)
                 .foregroundStyle(.secondary)

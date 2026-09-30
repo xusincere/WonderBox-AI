@@ -353,6 +353,16 @@
         }
       }
     },
+    "Analyze Again": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重新分析"
+          }
+        }
+      }
+    },
     "Analyze the home folder and protected folders directly": {
       "localizations": {
         "zh-Hans": {
@@ -369,6 +379,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "正在分析"
+          }
+        }
+      }
+    },
+    "Analyzing with Codex…": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在通过 Codex 分析…"
           }
         }
       }
@@ -1064,6 +1084,36 @@
           "stringUnit": {
             "state": "translated",
             "value": "关闭"
+          }
+        }
+      }
+    },
+    "Codex did not return a complete analysis. Please retry.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codex 未返回完整分析，请重试。"
+          }
+        }
+      }
+    },
+    "Codex failed. Check your login, model and subscription allowance, then retry.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codex 调用失败。请检查登录、模型和订阅额度后重试。"
+          }
+        }
+      }
+    },
+    "Codex was not found. Set its executable path in Settings, then run codex login in Terminal.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未找到 Codex。请在设置中指定程序路径，并在终端运行 codex login。"
           }
         }
       }
@@ -2205,6 +2255,16 @@
         }
       }
     },
+    "No web search was observed; this result is not verified online.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未检测到网页搜索，此结果未经联网核实。"
+          }
+        }
+      }
+    },
     "Normal": {
       "localizations": {
         "zh-Hans": {
@@ -2669,6 +2729,16 @@
         }
       }
     },
+    "Recommendation": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "建议"
+          }
+        }
+      }
+    },
     "Recount": {
       "localizations": {
         "zh-Hans": {
@@ -2848,6 +2918,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "正在扫描应用…"
+          }
+        }
+      }
+    },
+    "Scanning stays local. AI analysis sends the previewed summary to Codex.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "扫描在本机进行，AI 分析会将预览的摘要发送给 Codex。"
           }
         }
       }
@@ -3052,6 +3132,16 @@
         }
       }
     },
+    "Sources": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "资料来源"
+          }
+        }
+      }
+    },
     "Stale": {
       "localizations": {
         "zh-Hans": {
@@ -3068,6 +3158,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "标准扫描"
+          }
+        }
+      }
+    },
+    "Start Analysis": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "开始分析"
           }
         }
       }
@@ -3218,6 +3318,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "App Store 沙盒使用系统目录选择授权。"
+          }
+        }
+      }
+    },
+    "The analysis timed out after 180 seconds. Please retry.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "分析超过 180 秒，请重试。"
           }
         }
       }
@@ -3443,6 +3553,16 @@
         }
       }
     },
+    "Uncertainty": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "尚不确定的信息"
+          }
+        }
+      }
+    },
     "Unchecked": {
       "localizations": {
         "zh-Hans": {
@@ -3584,6 +3704,16 @@
         }
       }
     },
+    "View Summary": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "查看摘要"
+          }
+        }
+      }
+    },
     "View and select items": {
       "localizations": {
         "zh-Hans": {
@@ -3620,6 +3750,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Chromium 浏览器与 Electron 应用的网页缓存，跳过运行中的应用"
+          }
+        }
+      }
+    },
+    "Web search used": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已使用网页搜索"
           }
         }
       }
