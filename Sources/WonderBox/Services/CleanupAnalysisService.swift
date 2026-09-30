@@ -173,7 +173,7 @@ final class CleanupAnalysisService: @unchecked Sendable {
         Clearly distinguish observed metadata, facts supported by sources, and inferences. Do not guarantee safety
         based on a cache label, infer installed versions from directory names, or claim unobserved settings/data exist.
         State unknowns and recommend the application's own cleanup action when appropriate. Keep the answer concise.
-        Return only the JSON object described by the output schema.
+        Return only the JSON object described by the output schema. Use plain text in fields; put links only in sources.
         Directory summary:
         \(payload)
         """
@@ -211,7 +211,7 @@ final class CleanupAnalysisService: @unchecked Sendable {
                          "-C", workspace.path, "-s", "read-only", "-m", settings.model,
                          "-c", "model_reasoning_effort=\(settings.effort)", "-c", "approval_policy=never",
                          "-c", "web_search=live", "-c", "project_doc_max_bytes=0"]
-        for feature in ["shell_tool", "unified_exec", "hooks", "plugins", "apps", "multi_agent", "computer_use", "browser_use", "code_mode", "code_mode_host"] {
+        for feature in ["shell_tool", "unified_exec", "hooks", "plugins", "apps", "multi_agent", "computer_use", "browser_use", "code_mode"] {
             arguments += ["--disable", feature]
         }
         return arguments + ["--json", "--output-schema", schema.path, "-"]
