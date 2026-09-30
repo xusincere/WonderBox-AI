@@ -233,6 +233,7 @@ private struct CleanupDetailSheet: View {
     @EnvironmentObject private var model: AppModel
     @Environment(\.dismiss) private var dismiss
     let kind: CleanupKind
+    @State private var analysisItem: CleanupItem?
 
     private var category: CleanupCategory? {
         model.cleanupCategories.first { $0.kind == kind }
@@ -294,6 +295,7 @@ private struct CleanupDetailSheet: View {
                                 .monospacedDigit()
                                 .foregroundStyle(item.isSizeEstimated ? .primary : .secondary)
                                 .frame(width: 90, alignment: .trailing)
+                            Button("AI Analysis") { analysisItem = item }
                             Button {
                                 NSWorkspace.shared.activateFileViewerSelecting([item.url])
                             } label: {
@@ -310,6 +312,9 @@ private struct CleanupDetailSheet: View {
             }
         }
         .frame(minWidth: 720, minHeight: 520)
+        .sheet(item: $analysisItem) { item in
+            CleanupAnalysisSheet(item: item, kind: kind)
+        }
     }
 
     private func setAll(_ selected: Bool) {

@@ -223,6 +223,26 @@
     "3s": {
       "shouldTranslate": false
     },
+    "AI Analysis": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AI 分析"
+          }
+        }
+      }
+    },
+    "AI analysis sends this directory summary to Codex and may use your subscription allowance. File contents are not sent.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AI 分析会将此目录摘要发送给 Codex，并可能消耗订阅额度，不会发送文件内容。"
+          }
+        }
+      }
+    },
     "Accent Color": {
       "localizations": {
         "zh-Hans": {
@@ -470,6 +490,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "应用运行与诊断日志"
+          }
+        }
+      }
+    },
+    "Application matches are inferred from names and identifiers; ownership and custom paths are not confirmed.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "根据名称和标识推测关联应用，尚未确认目录归属及自定义路径。"
           }
         }
       }
@@ -998,6 +1028,16 @@
         }
       }
     },
+    "Cleanup Impact": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "清理影响"
+          }
+        }
+      }
+    },
     "Clear search": {
       "localizations": {
         "zh-Hans": {
@@ -1238,6 +1278,16 @@
         }
       }
     },
+    "Directory sample": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "目录结构摘要"
+          }
+        }
+      }
+    },
     "Disk": {
       "localizations": {
         "zh-Hans": {
@@ -1314,6 +1364,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "偏高"
+          }
+        }
+      }
+    },
+    "Empties the entire Trash, including items outside this selection.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "清空整个废纸篓，包括当前选中项目之外的内容。"
           }
         }
       }
@@ -2024,6 +2084,16 @@
         }
       }
     },
+    "Moves the selected item and everything inside it to the Trash.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "将选中项目及其全部内容移入废纸篓。"
+          }
+        }
+      }
+    },
     "Name": {
       "localizations": {
         "zh-Hans": {
@@ -2245,6 +2315,16 @@
         }
       }
     },
+    "Only directory names from two levels are sampled. File contents and deeper entries are not inspected.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "仅采集两层目录名称，不读取文件内容和更深层的项目。"
+          }
+        }
+      }
+    },
     "Open %@": {
       "localizations": {
         "zh-Hans": {
@@ -2395,12 +2475,42 @@
         }
       }
     },
+    "Permanently deletes the selected item and everything inside it.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "永久删除选中项目及其全部内容。"
+          }
+        }
+      }
+    },
     "Permissions and Build": {
       "localizations": {
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "权限与构建"
+          }
+        }
+      }
+    },
+    "Possible applications": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "可能关联的应用"
+          }
+        }
+      }
+    },
+    "Preparing directory summary…": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在准备目录摘要…"
           }
         }
       }
@@ -2902,6 +3012,16 @@
         }
       }
     },
+    "Some directory metadata could not be read.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "部分目录元数据无法读取。"
+          }
+        }
+      }
+    },
     "Sort": {
       "localizations": {
         "zh-Hans": {
@@ -3122,6 +3242,16 @@
         }
       }
     },
+    "The directory sample was truncated after 100 entries.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "目录摘要已在检查 100 个项目后截断。"
+          }
+        }
+      }
+    },
     "The maintenance helper is not installed": {
       "localizations": {
         "zh-Hans": {
@@ -3239,6 +3369,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "当前机型未开放 SMC 风扇控制"
+          }
+        }
+      }
+    },
+    "This item is a symbolic link; its target was not inspected.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此项目是符号链接，未检查链接目标。"
           }
         }
       }
