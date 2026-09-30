@@ -7,6 +7,9 @@ struct SettingsView: View {
     @AppStorage("accent") private var accent = AccentChoice.ocean.rawValue
     @AppStorage("showMenuBar") private var showMenuBar = true
     @AppStorage("confirmQuitOnClose") private var confirmQuitOnClose = true
+    @AppStorage("cleanupCodexPath") private var codexPath = ""
+    @AppStorage("cleanupCodexModel") private var codexModel = "gpt-6.1-sol"
+    @AppStorage("cleanupCodexEffort") private var codexEffort = "medium"
     @StateObject private var launchAtLogin = LaunchAtLoginController()
     @State private var language = AppLanguage.current
     @State private var showLanguageRelaunch = false
@@ -14,7 +17,7 @@ struct SettingsView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 22) {
-                PageHeader(title: String(localized: "Settings"), subtitle: String(localized: "Appearance, language and startup"))
+                PageHeader(title: String(localized: "Settings"), subtitle: String(localized: "Appearance, language, startup and AI analysis"))
 
                 settingsSection(String(localized: "Appearance"), symbol: "paintbrush") {
                     settingRow(String(localized: "Theme")) {
@@ -108,6 +111,36 @@ struct SettingsView: View {
 
                 if let message = launchAtLogin.message {
                     InlineMessage(text: message, isError: true)
+                }
+
+                settingsSection(String(localized: "AI Cleanup Analysis"), symbol: "sparkles") {
+                    settingRow(String(localized: "Codex Path")) {
+                        TextField("Auto-detect", text: $codexPath)
+                            .textFieldStyle(.roundedBorder)
+                            .frame(width: 360)
+                            .help(CleanupAnalysisSettings.detectedExecutable ?? String(localized: "Codex was not found"))
+                    }
+                    Divider()
+                    settingRow(String(localized: "Model")) {
+                        TextField("gpt-6.1-sol", text: $codexModel)
+                            .textFieldStyle(.roundedBorder)
+                            .frame(width: 240)
+                    }
+                    Divider()
+                    settingRow(String(localized: "Reasoning Effort")) {
+                        Picker("Reasoning Effort", selection: $codexEffort) {
+                            Text("Low").tag("low")
+                            Text("Medium").tag("medium")
+                            Text("High").tag("high")
+                            Text("Extra High").tag("xhigh")
+                            Text("Maximum").tag("max")
+                        }
+                        .labelsHidden()
+                        .frame(width: 150)
+                    }
+                    Text("Uses your existing Codex login. Run codex login in Terminal if needed. Analysis starts only when you request it.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
                 }
 
                 settingsSection(String(localized: "Permissions and Build"), symbol: "lock.shield") {

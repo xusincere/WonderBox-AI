@@ -23,7 +23,7 @@
 
 ![WonderBox overview page showing CPU, memory, disk, network, battery and uptime](docs/screenshots/overview.png)
 
-> The interface is in Simplified Chinese. Everything runs on-device; nothing is uploaded.
+> Scanning and cleanup run on-device. Optional AI analysis sends the previewed directory summary to your local Codex CLI, which contacts the Codex service and searches the web; file contents are not included.
 
 ## Why WonderBox
 
@@ -65,6 +65,8 @@ Most "Mac cleaners" show you a big green number and hope you don't check. Wonder
 Every category expands to item level so you can keep one tool's cache and drop another:
 
 ![Item-level selection inside the package cache category](docs/screenshots/cleaner-detail.png)
+
+**AI Analysis** explains an item's deletion impact, recovery options and supporting sources through your existing Codex login. It does not select or delete anything. Model and reasoning effort are configurable in Settings; defaults are `gpt-6.1-sol` and `medium`. See [preview build and verification notes](docs/cleanup-analysis.md).
 
 ### Application uninstall
 

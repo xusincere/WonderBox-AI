@@ -54,6 +54,16 @@
         }
       }
     },
+    "%@ · %@": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · %@"
+          }
+        }
+      }
+    },
     "%@, %@": {
       "localizations": {
         "zh-Hans": {
@@ -229,6 +239,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "AI 分析"
+          }
+        }
+      }
+    },
+    "AI Cleanup Analysis": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "清理 AI 分析"
           }
         }
       }
@@ -453,6 +473,16 @@
         }
       }
     },
+    "App leftovers, backups and downloads go to the Trash; cache directories are permanently deleted, including any data inside.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "应用残留、备份和下载文件移入废纸篓；缓存目录及其全部内容将永久删除。"
+          }
+        }
+      }
+    },
     "App leftovers, backups and downloads go to the Trash; caches are deleted and rebuilt on demand.": {
       "localizations": {
         "zh-Hans": {
@@ -479,6 +509,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "外观、语言与启动行为"
+          }
+        }
+      }
+    },
+    "Appearance, language, startup and AI analysis": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "外观、语言、启动与 AI 分析"
           }
         }
       }
@@ -610,6 +650,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "已授权"
+          }
+        }
+      }
+    },
+    "Auto-detect": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自动查找"
           }
         }
       }
@@ -1088,6 +1138,16 @@
         }
       }
     },
+    "Codex Path": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codex 程序路径"
+          }
+        }
+      }
+    },
     "Codex did not return a complete analysis. Please retry.": {
       "localizations": {
         "zh-Hans": {
@@ -1104,6 +1164,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Codex 调用失败。请检查登录、模型和订阅额度后重试。"
+          }
+        }
+      }
+    },
+    "Codex was not found": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未找到 Codex"
           }
         }
       }
@@ -1439,6 +1509,16 @@
         }
       }
     },
+    "Extra High": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "很高"
+          }
+        }
+      }
+    },
     "Extra categories start unselected and can be restored from the Trash": {
       "localizations": {
         "zh-Hans": {
@@ -1678,6 +1758,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "请先完成完全授权，或使用“选择目录”授予单个目录访问。"
+          }
+        }
+      }
+    },
+    "High": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "高"
           }
         }
       }
@@ -1964,6 +2054,16 @@
         }
       }
     },
+    "Low": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "低"
+          }
+        }
+      }
+    },
     "Main Fan": {
       "localizations": {
         "zh-Hans": {
@@ -1974,12 +2074,32 @@
         }
       }
     },
+    "Maximum": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最高"
+          }
+        }
+      }
+    },
     "Measuring process memory…": {
       "localizations": {
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "正在统计进程内存…"
+          }
+        }
+      }
+    },
+    "Medium": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "中"
           }
         }
       }
@@ -2059,7 +2179,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "机型"
+            "value": "模型"
           }
         }
       }
@@ -2709,6 +2829,16 @@
         }
       }
     },
+    "Reasoning Effort": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "思考强度"
+          }
+        }
+      }
+    },
     "Rebuildable cache data from apps and sandboxed containers": {
       "localizations": {
         "zh-Hans": {
@@ -2988,6 +3118,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "选择项目后可在 Finder 中查看或移入废纸篓"
+          }
+        }
+      }
+    },
+    "Selected cache directories are permanently deleted, including any data inside; installers go to the Trash.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "选中的缓存目录及其全部内容将永久删除；安装包移入废纸篓。"
           }
         }
       }
@@ -3684,6 +3824,16 @@
         }
       }
     },
+    "Uses your existing Codex login. Run codex login in Terminal if needed. Analysis starts only when you request it.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用现有的 Codex 登录。必要时在终端运行 codex login，仅在你主动操作时开始分析。"
+          }
+        }
+      }
+    },
     "Value": {
       "localizations": {
         "zh-Hans": {
@@ -3836,6 +3986,9 @@
           }
         }
       }
+    },
+    "gpt-6.1-sol": {
+      "shouldTranslate": false
     },
     "iPhone and iPad backups stored on this Mac": {
       "localizations": {

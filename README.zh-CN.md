@@ -23,7 +23,9 @@
 
 ![WonderBox 概览页，显示 CPU、内存、磁盘、网络、电池与运行时间](docs/screenshots/zh/overview.png)
 
-> 所有扫描与分析都在本机完成，不上传任何数据。
+> 扫描与清理在本机完成。可选的 AI 分析会将预览的目录摘要交给本机 Codex CLI，由其连接 Codex 服务并搜索网页；摘要不包含文件内容。
+
+清理明细中的「AI 分析」会说明单项删除后果、恢复方式及资料来源，不改变勾选或执行清理。设置中可调整模型和思考强度，默认 `gpt-6.1-sol / medium`。参见[测试版使用与验证说明](docs/cleanup-analysis.md)。
 
 ## 为什么是 WonderBox
 

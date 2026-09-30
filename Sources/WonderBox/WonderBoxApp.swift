@@ -26,7 +26,7 @@ struct WonderBoxApplication: App {
 
     var body: some Scene {
         // A single window: every window shares `model.selection`, so a second one would only mirror the first.
-        Window("WonderBox", id: "main") {
+        Window(Bundle.main.productName ?? "WonderBox", id: "main") {
             RootView()
                 .environmentObject(model)
                 .preferredColorScheme(selectedAppearance.colorScheme)

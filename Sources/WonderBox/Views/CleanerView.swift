@@ -76,8 +76,8 @@ struct CleanerView: View {
             Button("Cancel", role: .cancel) {}
         } message: {
             Text(model.cleanupScanMode == .deep
-                ? String(localized: "App leftovers, backups and downloads go to the Trash; caches are deleted and rebuilt on demand.")
-                : String(localized: "Caches are rebuilt the next time an app runs; installers go to the Trash."))
+                ? String(localized: "App leftovers, backups and downloads go to the Trash; cache directories are permanently deleted, including any data inside.")
+                : String(localized: "Selected cache directories are permanently deleted, including any data inside; installers go to the Trash."))
         }
         .sheet(item: $detailKind) { kind in
             CleanupDetailSheet(kind: kind)

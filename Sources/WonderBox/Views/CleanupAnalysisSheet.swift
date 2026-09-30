@@ -69,7 +69,7 @@ struct CleanupAnalysisSheet: View {
     }
 
     private func startAnalysis() {
-        guard let summary else { return }
+        guard analysisTask == nil, let summary else { return }
         errorMessage = nil
         response = nil
         let settings = CleanupAnalysisSettings(executablePath: codexPath, model: codexModel, effort: codexEffort)
