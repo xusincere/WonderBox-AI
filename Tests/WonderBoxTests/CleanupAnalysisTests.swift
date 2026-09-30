@@ -46,6 +46,24 @@ final class CleanupAnalysisTests: XCTestCase {
         XCTAssertNil(summary.sizeBytes)
     }
 
+    func testNVMDiscoveryUsesCodexVersionInsteadOfNodeVersion() throws {
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: root) }
+        for (node, codex) in [("v25.2.1", "0.156.1"), ("v22.22.0", "0.159.2"), ("v24.0.0", "0.99.0")] {
+            let installation = root.appendingPathComponent(node)
+            let bin = installation.appendingPathComponent("bin")
+            try FileManager.default.createDirectory(at: bin, withIntermediateDirectories: true)
+            let executable = bin.appendingPathComponent("codex")
+            try Data("#!/bin/sh\nexit 0\n".utf8).write(to: executable)
+            try FileManager.default.setAttributes([.posixPermissions: 0o755], ofItemAtPath: executable.path)
+            let package = installation.appendingPathComponent("lib/node_modules/@openai/codex")
+            try FileManager.default.createDirectory(at: package, withIntermediateDirectories: true)
+            try JSONSerialization.data(withJSONObject: ["version": codex]).write(to: package.appendingPathComponent("package.json"))
+        }
+        let selected = try XCTUnwrap(CleanupAnalysisSettings.newestNVMExecutable(in: root))
+        XCTAssertEqual(Array(URL(fileURLWithPath: selected).pathComponents.suffix(3)), ["v22.22.0", "bin", "codex"])
+    }
+
     func testCodexInvocationAndStructuredResult() async throws {
         let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         defer { try? FileManager.default.removeItem(at: directory) }
@@ -79,6 +97,14 @@ final class CleanupAnalysisTests: XCTestCase {
             _ = try await CleanupAnalysisService().analyze(summary: fixtureSummary, settings: .init(executablePath: failed.path))
             XCTFail("Expected failure")
         } catch { XCTAssertEqual(error.localizedDescription, "quota exceeded") }
+
+        let apiMessage = "The 'gpt-6.1-sol' model is not supported when using Codex with a ChatGPT account."
+        let body = String(decoding: try JSONSerialization.data(withJSONObject: ["type": "error", "status": 400, "error": ["type": "invalid_request_error", "message": apiMessage]]), as: UTF8.self)
+        let event = try JSONSerialization.data(withJSONObject: ["type": "turn.failed", "error": ["message": body]])
+        do {
+            _ = try CleanupAnalysisService.parseOutput(event, exitCode: 1)
+            XCTFail("Expected model failure")
+        } catch { XCTAssertEqual(error.localizedDescription, apiMessage) }
 
         let waiting = try fakeCLI(in: directory, body: "cat >/dev/null\nexec /bin/sleep 20")
         let task = Task {

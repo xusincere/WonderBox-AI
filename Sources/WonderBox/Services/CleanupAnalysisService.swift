@@ -11,13 +11,25 @@ struct CleanupAnalysisSettings: Sendable {
         let home = manager.homeDirectoryForCurrentUser
         var directories = (ProcessInfo.processInfo.environment["PATH"] ?? "").split(separator: ":").map(String.init)
         directories += ["/opt/homebrew/bin", "/usr/local/bin", home.appendingPathComponent(".local/bin").path]
-        let nodeRoot = home.appendingPathComponent(".nvm/versions/node")
-        let versions = (try? manager.contentsOfDirectory(atPath: nodeRoot.path)) ?? []
-        directories += versions.sorted { $0.localizedStandardCompare($1) == .orderedDescending }.map {
-            nodeRoot.appendingPathComponent("\($0)/bin").path
-        }
         return directories.map { URL(fileURLWithPath: $0).appendingPathComponent("codex").path }
             .first { manager.isExecutableFile(atPath: $0) }
+            ?? newestNVMExecutable(in: home.appendingPathComponent(".nvm/versions/node"))
+    }
+
+    static func newestNVMExecutable(in nodeRoot: URL) -> String? {
+        let manager = FileManager.default
+        let installations = (try? manager.contentsOfDirectory(at: nodeRoot, includingPropertiesForKeys: nil)) ?? []
+        let candidates = installations.compactMap { installation -> (path: String, version: [Int])? in
+            let executable = installation.appendingPathComponent("bin/codex").path
+            guard manager.isExecutableFile(atPath: executable) else { return nil }
+            // NVM's Node version says nothing about the installed Codex version.
+            let package = installation.appendingPathComponent("lib/node_modules/@openai/codex/package.json")
+            let data = try? Data(contentsOf: package)
+            let metadata = data.flatMap { try? JSONSerialization.jsonObject(with: $0) as? [String: Any] }
+            let version = (metadata?["version"] as? String ?? "").split(separator: ".").compactMap { Int($0) }
+            return (executable, version)
+        }
+        return candidates.max { $0.version.lexicographicallyPrecedes($1.version) }?.path
     }
 }
 
@@ -238,7 +250,12 @@ final class CleanupAnalysisService: @unchecked Sendable {
                 if item["type"] as? String == "agent_message" { finalMessage = item["text"] as? String }
             }
         }
-        if let errorMessage { throw CleanupAnalysisError.failed(errorMessage) }
+        if let errorMessage {
+            // CLI events can wrap the API error body in their message string.
+            let body = try? JSONSerialization.jsonObject(with: Data(errorMessage.utf8)) as? [String: Any]
+            let message = (body?["error"] as? [String: Any])?["message"] as? String
+            throw CleanupAnalysisError.failed(message ?? errorMessage)
+        }
         if exitCode != 0 {
             throw CleanupAnalysisError.failed(diagnostic ?? String(localized: "Codex failed. Check your login, model and subscription allowance, then retry."))
         }
