@@ -4,6 +4,9 @@ set -euo pipefail
 ROOT="${0:A:h:h}"
 CONFIGURATION="${CONFIGURATION:-release}"
 APP="$ROOT/build/WonderBox.app"
+if [[ "${PREVIEW:-0}" == "1" ]]; then
+  APP="$ROOT/build/WonderBox-AI-Preview.app"
+fi
 CONTENTS="$APP/Contents"
 
 cd "$ROOT"
@@ -22,12 +25,17 @@ cp "$BIN_DIR/WonderBox" "$CONTENTS/MacOS/WonderBox"
 cp "$BIN_DIR/WonderFanHelper" "$CONTENTS/Helpers/WonderFanHelper"
 cp "$BIN_DIR/WonderMaintenanceHelper" "$CONTENTS/Helpers/WonderMaintenanceHelper"
 cp "Sources/WonderBox/Resources/Info.plist" "$CONTENTS/Info.plist"
+if [[ "${PREVIEW:-0}" == "1" ]]; then
+  /usr/libexec/PlistBuddy -c "Set :CFBundleIdentifier com.wondercraft.WonderBox.AIPreview" "$CONTENTS/Info.plist"
+  /usr/libexec/PlistBuddy -c "Set :CFBundleName WonderBox AI Preview" "$CONTENTS/Info.plist"
+  /usr/libexec/PlistBuddy -c "Set :CFBundleDisplayName WonderBox AI Preview" "$CONTENTS/Info.plist"
+fi
 cp "Sources/WonderBox/Resources/PrivacyInfo.xcprivacy" "$CONTENTS/Resources/PrivacyInfo.xcprivacy"
+cp "LICENSE" "$CONTENTS/Resources/LICENSE"
 cp "Sources/WonderBox/Resources/com.wondercraft.WonderBox.FanHelper.plist" "$CONTENTS/Resources/com.wondercraft.WonderBox.FanHelper.plist"
 
 # String catalogs → <language>.lproj/Localizable.strings; the app resolves them through Bundle.main.
-xcrun xcstringstool compile "Sources/WonderBox/Resources/Localizable.xcstrings" --output-directory "$CONTENTS/Resources"
-xcrun xcstringstool compile "Sources/WonderBox/Resources/InfoPlist.xcstrings" --output-directory "$CONTENTS/Resources"
+python3 scripts/compile_localization.py "$CONTENTS/Resources"
 
 swift scripts/generate_icon.swift "$ROOT/build/AppIcon-1024.png"
 ICONSET="$ROOT/build/AppIcon.iconset"

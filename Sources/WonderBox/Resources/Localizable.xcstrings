@@ -54,6 +54,16 @@
         }
       }
     },
+    "%@ · %@": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · %@"
+          }
+        }
+      }
+    },
     "%@, %@": {
       "localizations": {
         "zh-Hans": {
@@ -223,6 +233,46 @@
     "3s": {
       "shouldTranslate": false
     },
+    "AI Analysis": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AI 分析"
+          }
+        }
+      }
+    },
+    "AI Answer": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AI 回答"
+          }
+        }
+      }
+    },
+    "AI Cleanup Analysis": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "清理 AI 分析"
+          }
+        }
+      }
+    },
+    "AI analysis sends the directory summary, your questions and previous answers to Codex and may use your subscription allowance. File contents are not read automatically.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AI 分析会将目录摘要、你的问题和此前回答发送给 Codex，并可能消耗订阅额度；不会自动读取文件内容。"
+          }
+        }
+      }
+    },
     "Accent Color": {
       "localizations": {
         "zh-Hans": {
@@ -333,6 +383,16 @@
         }
       }
     },
+    "Analyze Again": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重新分析"
+          }
+        }
+      }
+    },
     "Analyze the home folder and protected folders directly": {
       "localizations": {
         "zh-Hans": {
@@ -349,6 +409,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "正在分析"
+          }
+        }
+      }
+    },
+    "Analyzing with Codex…": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在通过 Codex 分析…"
           }
         }
       }
@@ -413,6 +483,16 @@
         }
       }
     },
+    "App leftovers, backups and downloads go to the Trash; cache directories are permanently deleted, including any data inside.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "应用残留、备份和下载文件移入废纸篓；缓存目录及其全部内容将永久删除。"
+          }
+        }
+      }
+    },
     "App leftovers, backups and downloads go to the Trash; caches are deleted and rebuilt on demand.": {
       "localizations": {
         "zh-Hans": {
@@ -439,6 +519,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "外观、语言与启动行为"
+          }
+        }
+      }
+    },
+    "Appearance, language, startup and AI analysis": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "外观、语言、启动与 AI 分析"
           }
         }
       }
@@ -470,6 +560,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "应用运行与诊断日志"
+          }
+        }
+      }
+    },
+    "Application matches are inferred from names and identifiers; ownership and custom paths are not confirmed.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "根据名称和标识推测关联应用，尚未确认目录归属及自定义路径。"
           }
         }
       }
@@ -524,6 +624,16 @@
         }
       }
     },
+    "Ask a follow-up question": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "继续提问"
+          }
+        }
+      }
+    },
     "Ask before quitting": {
       "localizations": {
         "zh-Hans": {
@@ -560,6 +670,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "已授权"
+          }
+        }
+      }
+    },
+    "Auto-detect": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自动查找"
           }
         }
       }
@@ -998,6 +1118,16 @@
         }
       }
     },
+    "Cleanup Impact": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "清理影响"
+          }
+        }
+      }
+    },
     "Clear search": {
       "localizations": {
         "zh-Hans": {
@@ -1024,6 +1154,56 @@
           "stringUnit": {
             "state": "translated",
             "value": "关闭"
+          }
+        }
+      }
+    },
+    "Codex Path": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codex 程序路径"
+          }
+        }
+      }
+    },
+    "Codex did not return a complete analysis. Please retry.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codex 未返回完整分析，请重试。"
+          }
+        }
+      }
+    },
+    "Codex failed. Check your login, model and subscription allowance, then retry.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codex 调用失败。请检查登录、模型和订阅额度后重试。"
+          }
+        }
+      }
+    },
+    "Codex was not found": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未找到 Codex"
+          }
+        }
+      }
+    },
+    "Codex was not found. Set its executable path in Settings, then run codex login in Terminal.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未找到 Codex。请在设置中指定程序路径，并在终端运行 codex login。"
           }
         }
       }
@@ -1238,6 +1418,16 @@
         }
       }
     },
+    "Directory sample": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "目录结构摘要"
+          }
+        }
+      }
+    },
     "Disk": {
       "localizations": {
         "zh-Hans": {
@@ -1318,6 +1508,16 @@
         }
       }
     },
+    "Empties the entire Trash, including items outside this selection.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "清空整个废纸篓，包括当前选中项目之外的内容。"
+          }
+        }
+      }
+    },
     "Empty command": {
       "extractionState": "manual",
       "localizations": {
@@ -1325,6 +1525,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "空指令"
+          }
+        }
+      }
+    },
+    "Extra High": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "很高"
           }
         }
       }
@@ -1472,6 +1682,16 @@
         }
       }
     },
+    "Follow-up question": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "追问内容"
+          }
+        }
+      }
+    },
     "Force Quit %@": {
       "localizations": {
         "zh-Hans": {
@@ -1568,6 +1788,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "请先完成完全授权，或使用“选择目录”授予单个目录访问。"
+          }
+        }
+      }
+    },
+    "High": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "高"
           }
         }
       }
@@ -1854,6 +2084,16 @@
         }
       }
     },
+    "Low": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "低"
+          }
+        }
+      }
+    },
     "Main Fan": {
       "localizations": {
         "zh-Hans": {
@@ -1864,12 +2104,32 @@
         }
       }
     },
+    "Maximum": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最高"
+          }
+        }
+      }
+    },
     "Measuring process memory…": {
       "localizations": {
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "正在统计进程内存…"
+          }
+        }
+      }
+    },
+    "Medium": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "中"
           }
         }
       }
@@ -1949,7 +2209,7 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "机型"
+            "value": "模型"
           }
         }
       }
@@ -2020,6 +2280,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "已移入 %1$lld 项，%2$lld 项未处理"
+          }
+        }
+      }
+    },
+    "Moves the selected item and everything inside it to the Trash.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "将选中项目及其全部内容移入废纸篓。"
           }
         }
       }
@@ -2135,6 +2405,16 @@
         }
       }
     },
+    "No web search was observed; this result is not verified online.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未检测到网页搜索，此结果未经联网核实。"
+          }
+        }
+      }
+    },
     "Normal": {
       "localizations": {
         "zh-Hans": {
@@ -2241,6 +2521,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "持续开启"
+          }
+        }
+      }
+    },
+    "Only directory names from two levels are sampled. File contents and deeper entries are not inspected.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "仅采集两层目录名称，不读取文件内容和更深层的项目。"
           }
         }
       }
@@ -2395,12 +2685,42 @@
         }
       }
     },
+    "Permanently deletes the selected item and everything inside it.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "永久删除选中项目及其全部内容。"
+          }
+        }
+      }
+    },
     "Permissions and Build": {
       "localizations": {
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "权限与构建"
+          }
+        }
+      }
+    },
+    "Possible applications": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "可能关联的应用"
+          }
+        }
+      }
+    },
+    "Preparing directory summary…": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在准备目录摘要…"
           }
         }
       }
@@ -2539,6 +2859,16 @@
         }
       }
     },
+    "Reasoning Effort": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "思考强度"
+          }
+        }
+      }
+    },
     "Rebuildable cache data from apps and sandboxed containers": {
       "localizations": {
         "zh-Hans": {
@@ -2555,6 +2885,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "约可清理"
+          }
+        }
+      }
+    },
+    "Recommendation": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "建议"
           }
         }
       }
@@ -2742,6 +3082,16 @@
         }
       }
     },
+    "Scanning stays local. AI analysis sends the summary, questions and previous answers to Codex.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "扫描在本机进行，AI 分析会将摘要、问题和此前回答发送给 Codex。"
+          }
+        }
+      }
+    },
     "Search apps": {
       "localizations": {
         "zh-Hans": {
@@ -2798,6 +3148,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "选择项目后可在 Finder 中查看或移入废纸篓"
+          }
+        }
+      }
+    },
+    "Selected cache directories are permanently deleted, including any data inside; installers go to the Trash.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "选中的缓存目录及其全部内容将永久删除；安装包移入废纸篓。"
+          }
+        }
+      }
+    },
+    "Send": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "发送"
           }
         }
       }
@@ -2902,6 +3272,16 @@
         }
       }
     },
+    "Some directory metadata could not be read.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "部分目录元数据无法读取。"
+          }
+        }
+      }
+    },
     "Sort": {
       "localizations": {
         "zh-Hans": {
@@ -2932,6 +3312,16 @@
         }
       }
     },
+    "Sources": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "资料来源"
+          }
+        }
+      }
+    },
     "Stale": {
       "localizations": {
         "zh-Hans": {
@@ -2948,6 +3338,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "标准扫描"
+          }
+        }
+      }
+    },
+    "Start Analysis": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "开始分析"
           }
         }
       }
@@ -3102,6 +3502,16 @@
         }
       }
     },
+    "The analysis timed out after 180 seconds. Please retry.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "分析超过 180 秒，请重试。"
+          }
+        }
+      }
+    },
     "The app and the selected related files will be moved to the Trash.": {
       "localizations": {
         "zh-Hans": {
@@ -3118,6 +3528,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "将显示应用本体和可移除的关联文件"
+          }
+        }
+      }
+    },
+    "The directory sample was truncated after 100 entries.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "目录摘要已在检查 100 个项目后截断。"
           }
         }
       }
@@ -3243,6 +3663,16 @@
         }
       }
     },
+    "This item is a symbolic link; its target was not inspected.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此项目是符号链接，未检查链接目标。"
+          }
+        }
+      }
+    },
     "Time": {
       "localizations": {
         "zh-Hans": {
@@ -3299,6 +3729,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "当前不可用"
+          }
+        }
+      }
+    },
+    "Uncertainty": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "尚不确定的信息"
           }
         }
       }
@@ -3424,6 +3864,16 @@
         }
       }
     },
+    "Uses your existing Codex login. Run codex login in Terminal if needed. Analysis starts only when you request it.": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用现有的 Codex 登录。必要时在终端运行 codex login，仅在你主动操作时开始分析。"
+          }
+        }
+      }
+    },
     "Value": {
       "localizations": {
         "zh-Hans": {
@@ -3440,6 +3890,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "查看%@项目"
+          }
+        }
+      }
+    },
+    "View Analysis": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "查看分析"
+          }
+        }
+      }
+    },
+    "View Summary": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "查看摘要"
           }
         }
       }
@@ -3480,6 +3950,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Chromium 浏览器与 Electron 应用的网页缓存，跳过运行中的应用"
+          }
+        }
+      }
+    },
+    "Web search used": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已使用网页搜索"
           }
         }
       }
@@ -3547,6 +4027,16 @@
         }
       }
     },
+    "Your Question": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你的问题"
+          }
+        }
+      }
+    },
     "about %@ compressed or swapped": {
       "localizations": {
         "zh-Hans": {
@@ -3556,6 +4046,9 @@
           }
         }
       }
+    },
+    "gpt-6.1-sol": {
+      "shouldTranslate": false
     },
     "iPhone and iPad backups stored on this Mac": {
       "localizations": {

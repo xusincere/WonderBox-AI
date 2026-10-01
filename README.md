@@ -2,7 +2,9 @@
   <img src="docs/screenshots/app-icon.png" width="128" alt="WonderBox icon">
 </p>
 
-<h1 align="center">WonderBox</h1>
+<h1 align="center">WonderBox AI Preview</h1>
+
+> An experimental fork of [jasonwong1991/WonderBox](https://github.com/jasonwong1991/WonderBox), independently released with AI cleanup impact analysis and follow-up questions. Original attribution and the MIT license are retained. The first preview download is Apple Silicon only. [Download preview](https://github.com/xusincere/WonderBox-AI/releases) · [Release notes](docs/releases/v0.2.0-ai-preview.1.md).
 
 <p align="center">
   A native macOS system toolkit that tells you the truth about your Mac.<br>
@@ -23,7 +25,7 @@
 
 ![WonderBox overview page showing CPU, memory, disk, network, battery and uptime](docs/screenshots/overview.png)
 
-> The interface is in Simplified Chinese. Everything runs on-device; nothing is uploaded.
+> Scanning and cleanup run on-device. Optional AI analysis sends the previewed directory summary, your questions and previous answers to your local Codex CLI, which contacts the Codex service and searches the web. It may use your subscription allowance; file contents are not read automatically.
 
 ## Why WonderBox
 
@@ -66,6 +68,8 @@ Every category expands to item level so you can keep one tool's cache and drop a
 
 ![Item-level selection inside the package cache category](docs/screenshots/cleaner-detail.png)
 
+**AI Analysis** explains an item's deletion impact, recovery options and supporting sources through your existing Codex login. You can ask follow-up questions in the same window; closing it clears the conversation. It does not select or delete anything. Model and reasoning effort are configurable in Settings; defaults are `gpt-6.1-sol` and `medium`. See [preview build and verification notes](docs/cleanup-analysis.md).
+
 ### Application uninstall
 
 ![Application uninstall with related files](docs/screenshots/applications.png)
@@ -98,28 +102,24 @@ Drill into any folder level by level with sizes computed in parallel, sort by si
 
 ## Install
 
-Requirements: macOS 14 or newer, Apple Silicon or Intel.
+Preview download requirements: macOS 14 or newer, Apple Silicon. Tested on macOS 26.6.2; Intel has not been verified for this preview.
 
-**Download:** grab `WonderBox-x.y.z.zip` from the [latest release](https://github.com/jasonwong1991/WonderBox/releases/latest), unzip, and drag `WonderBox.app` to Applications.
+**Download:** grab `WonderBox-AI-Preview-0.2.0-ai-preview.1-arm64.zip` from this fork's [Releases](https://github.com/xusincere/WonderBox-AI/releases), unzip, and drag `WonderBox-AI-Preview.app` to Applications. Its separate name and bundle ID allow it to coexist with the original app. AI features require your own installed and logged-in Codex CLI; the tested version is 0.159.2.
 
-The release build is signed ad hoc, not notarized, so the first launch is blocked by Gatekeeper. Either right-click the app → Open, then confirm in System Settings › Privacy & Security › "Open Anyway", or clear the quarantine flag once:
-
-```bash
-xattr -dr com.apple.quarantine /Applications/WonderBox.app
-```
+The preview is signed ad hoc and is not notarized. Gatekeeper may block the first launch. Verify the download source and SHA256, then use macOS System Settings → Privacy & Security to authorize this individual app if needed.
 
 **Build from source** (Xcode 16 or newer):
 
 ```bash
-git clone https://github.com/jasonwong1991/WonderBox.git
-cd WonderBox
+git clone --branch codex/cleanup-impact-guide https://github.com/xusincere/WonderBox-AI.git
+cd WonderBox-AI
 swift build
 swift test
-./scripts/package_app.sh
-open build/WonderBox.app
+PREVIEW=1 ./scripts/package_app.sh
+open build/WonderBox-AI-Preview.app
 ```
 
-The package builds `WonderBox` plus two helpers. `package_app.sh` produces a locally signed `build/WonderBox.app` with the generated icon, compiled string catalogs and bundled helpers; `UNIVERSAL=1 ./scripts/package_app.sh` builds the Apple Silicon + Intel binary used for releases.
+The package builds `WonderBox` plus two helpers. `PREVIEW=1` produces the independent preview with its icon, string catalogs, helpers and full MIT license. Source builds support `UNIVERSAL=1`; this preview release contains an arm64 binary only.
 
 ## Languages
 

@@ -2,7 +2,9 @@
   <img src="docs/screenshots/app-icon.png" width="128" alt="WonderBox 图标">
 </p>
 
-<h1 align="center">WonderBox</h1>
+<h1 align="center">WonderBox AI Preview</h1>
+
+> 这是 [jasonwong1991/WonderBox](https://github.com/jasonwong1991/WonderBox) 的实验性 fork，新增清理影响 AI 分析与连续追问，由本 fork 独立发布。原作者与 MIT 许可声明保留。首个预览发行包仅支持 Apple Silicon；[下载预览版](https://github.com/xusincere/WonderBox-AI/releases) · [发行说明](docs/releases/v0.2.0-ai-preview.1.md)。
 
 <p align="center">
   一个对你的 Mac 说实话的原生系统工具箱。<br>
@@ -23,7 +25,9 @@
 
 ![WonderBox 概览页，显示 CPU、内存、磁盘、网络、电池与运行时间](docs/screenshots/zh/overview.png)
 
-> 所有扫描与分析都在本机完成，不上传任何数据。
+> 扫描与清理在本机完成。可选的 AI 分析会将预览的目录摘要、你的问题及此前回答交给本机 Codex CLI，由其连接 Codex 服务并搜索网页，可能消耗订阅额度；不会自动读取文件内容。
+
+清理明细中的「AI 分析」会说明单项删除后果、恢复方式及资料来源，并支持在同一窗口连续追问；关闭窗口即清空记录，不改变勾选或执行清理。设置中可调整模型和思考强度，默认 `gpt-6.1-sol / medium`。参见[测试版使用与验证说明](docs/cleanup-analysis.md)。
 
 ## 为什么是 WonderBox
 
@@ -98,28 +102,24 @@
 
 ## 安装
 
-运行要求：macOS 14 或更新，Apple Silicon 与 Intel 均可。
+预览发行包要求 macOS 14 或更新、Apple Silicon。本次仅在 macOS 26.6.2 上验证，未验证 Intel。
 
-**直接下载**：到 [最新 Release](https://github.com/jasonwong1991/WonderBox/releases/latest) 下载 `WonderBox-x.y.z.zip`，解压后把 `WonderBox.app` 拖进「应用程序」。
+**直接下载**：到本 fork 的 [Releases](https://github.com/xusincere/WonderBox-AI/releases) 下载 `WonderBox-AI-Preview-0.2.0-ai-preview.1-arm64.zip`，解压后把 `WonderBox-AI-Preview.app` 拖进「应用程序」。应用使用独立名称与 Bundle ID，可与原版并存。AI 功能需要自行安装并登录本机 Codex CLI，验证版本为 0.159.2。
 
-发行版为 ad hoc 签名、未经 Apple 公证，首次打开会被 Gatekeeper 拦截。可以右键 App → 打开，然后在「系统设置 › 隐私与安全性」中点「仍要打开」；或者一次性清除隔离标记：
-
-```bash
-xattr -dr com.apple.quarantine /Applications/WonderBox.app
-```
+预览版为 ad hoc 签名、未经 Apple 公证，首次打开可能被 Gatekeeper 拦截。请核对下载来源和 SHA256；需要打开时使用 macOS「系统设置 → 隐私与安全性」提供的单个应用授权流程。
 
 **从源码编译**（需要 Xcode 16 或更新）：
 
 ```bash
-git clone https://github.com/jasonwong1991/WonderBox.git
-cd WonderBox
+git clone --branch codex/cleanup-impact-guide https://github.com/xusincere/WonderBox-AI.git
+cd WonderBox-AI
 swift build
 swift test
-./scripts/package_app.sh
-open build/WonderBox.app
+PREVIEW=1 ./scripts/package_app.sh
+open build/WonderBox-AI-Preview.app
 ```
 
-Swift Package 会构建 `WonderBox` 主程序与两个 helper。`package_app.sh` 生成本地签名的 `build/WonderBox.app`，内含生成的图标、编译好的字符串目录与打包好的 helper；`UNIVERSAL=1 ./scripts/package_app.sh` 生成 Release 使用的 Apple Silicon + Intel 通用二进制。
+Swift Package 会构建 `WonderBox` 主程序与两个 helper。`PREVIEW=1` 生成独立预览版，内含图标、字符串目录、helper 与完整 MIT 许可。源码支持 `UNIVERSAL=1` 通用二进制构建，但本次发行包仅为 arm64。
 
 ## 多语言
 
