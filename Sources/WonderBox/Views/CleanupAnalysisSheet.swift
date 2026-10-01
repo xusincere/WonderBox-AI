@@ -6,6 +6,9 @@ struct CleanupAnalysisSheet: View {
     let kind: CleanupKind
     @State private var summary: CleanupAnalysisSummary?
     @State private var response: CleanupAnalysisResponse?
+    @State private var exchanges: [CleanupFollowUpExchange] = []
+    @State private var question = ""
+    @State private var showingSummary = false
     @State private var errorMessage: String?
     @State private var analysisTask: Task<Void, Never>?
     @AppStorage("cleanupCodexPath") private var codexPath = ""
@@ -19,24 +22,52 @@ struct CleanupAnalysisSheet: View {
                 Spacer()
                 Button("Done") { analysisTask?.cancel(); dismiss() }
             }
-            Text("AI analysis sends this directory summary to Codex and may use your subscription allowance. File contents are not sent.")
+            Text("AI analysis sends the directory summary, your questions and previous answers to Codex and may use your subscription allowance. File contents are not read automatically.")
                 .font(.callout)
                 .foregroundStyle(.secondary)
             Divider()
-            ScrollView {
-                if let response {
-                    resultView(response)
-                } else if let summary {
-                    Text(summary.preview)
-                        .font(.callout)
-                        .textSelection(.enabled)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                } else {
-                    ProgressView("Preparing directory summary…")
+            ScrollViewReader { reader in
+                ScrollView {
+                    if let response, !showingSummary {
+                        VStack(alignment: .leading, spacing: 20) {
+                            resultView(response)
+                            ForEach(Array(exchanges.enumerated()), id: \.offset) { _, exchange in
+                                exchangeView(exchange)
+                            }
+                            Color.clear.frame(height: 1).id("conversation-end")
+                        }
+                    } else if let summary {
+                        Text(summary.preview)
+                            .font(.callout)
+                            .textSelection(.enabled)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    } else {
+                        ProgressView("Preparing directory summary…")
+                    }
+                }
+                .onChange(of: exchanges.count) { _, _ in
+                    reader.scrollTo("conversation-end", anchor: .bottom)
                 }
             }
             if let errorMessage {
                 Text(errorMessage).font(.callout).foregroundStyle(.red).textSelection(.enabled)
+            }
+            if response != nil {
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("Ask a follow-up question").font(.callout)
+                    HStack(alignment: .bottom, spacing: 12) {
+                        TextEditor(text: $question)
+                            .font(.callout)
+                            .frame(height: 62)
+                            .padding(4)
+                            .overlay(RoundedRectangle(cornerRadius: 6).stroke(.secondary.opacity(0.3)))
+                            .accessibilityLabel("Follow-up question")
+                            .disabled(analysisTask != nil)
+                        Button("Send", action: sendFollowUp)
+                            .buttonStyle(.borderedProminent)
+                            .disabled(analysisTask != nil || question.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                    }
+                }
             }
             Divider()
             HStack {
@@ -49,7 +80,9 @@ struct CleanupAnalysisSheet: View {
                     Button("Cancel") { analysisTask?.cancel() }
                 } else {
                     if response != nil {
-                        Button("View Summary") { response = nil }
+                        Button(showingSummary ? String(localized: "View Analysis") : String(localized: "View Summary")) {
+                            showingSummary.toggle()
+                        }
                     }
                     Button(response == nil ? String(localized: "Start Analysis") : String(localized: "Analyze Again"), action: startAnalysis)
                         .buttonStyle(.borderedProminent)
@@ -70,16 +103,39 @@ struct CleanupAnalysisSheet: View {
 
     private func startAnalysis() {
         guard analysisTask == nil, let summary else { return }
-        errorMessage = nil
-        response = nil
         let settings = CleanupAnalysisSettings(executablePath: codexPath, model: codexModel, effort: codexEffort)
+        performRequest {
+            let result = try await CleanupAnalysisService().analyze(summary: summary, settings: settings)
+            try Task.checkCancellation()
+            response = result
+            exchanges = []
+            question = ""
+            showingSummary = false
+        }
+    }
+
+    private func sendFollowUp() {
+        let asked = question.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard analysisTask == nil, let summary, let response, !asked.isEmpty else { return }
+        let settings = CleanupAnalysisSettings(executablePath: codexPath, model: codexModel, effort: codexEffort)
+        let history = exchanges
+        performRequest {
+            let answer = try await CleanupAnalysisService().followUp(summary: summary, analysis: response, history: history, question: asked, settings: settings)
+            try Task.checkCancellation()
+            exchanges.append(.init(question: asked, response: answer))
+            question = ""
+            showingSummary = false
+        }
+    }
+
+    private func performRequest(_ operation: @escaping @MainActor () async throws -> Void) {
+        errorMessage = nil
         analysisTask = Task {
             defer { analysisTask = nil }
             do {
-                let result = try await CleanupAnalysisService().analyze(summary: summary, settings: settings)
-                if !Task.isCancelled { response = result }
+                try await operation()
             } catch is CancellationError {
-                // Cancellation returns to the preview, ready for another manual attempt.
+                // Keep the completed report, conversation and draft available for a manual retry.
             } catch {
                 if !Task.isCancelled { errorMessage = error.localizedDescription }
             }
@@ -88,8 +144,7 @@ struct CleanupAnalysisSheet: View {
 
     private func resultView(_ response: CleanupAnalysisResponse) -> some View {
         VStack(alignment: .leading, spacing: 18) {
-            Text(response.usedWebSearch ? String(localized: "Web search used") : String(localized: "No web search was observed; this result is not verified online."))
-                .font(.caption).foregroundStyle(.secondary)
+            searchStatus(response.usedWebSearch)
             Text(response.result.verdict).font(.headline)
             ForEach(Array(response.result.entries.enumerated()), id: \.offset) { _, entry in
                 VStack(alignment: .leading, spacing: 6) {
@@ -103,15 +158,40 @@ struct CleanupAnalysisSheet: View {
             Text(response.result.recommendation)
             Text("Uncertainty").font(.headline)
             Text(response.result.uncertainty)
-            if !response.result.sources.isEmpty {
-                Text("Sources").font(.headline)
-                ForEach(Array(response.result.sources.enumerated()), id: \.offset) { _, source in
-                    if let link = source.link { Link(source.title, destination: link) }
-                }
-            }
+            sourcesView(response.result.sources)
         }
         .font(.callout)
         .textSelection(.enabled)
         .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    private func exchangeView(_ exchange: CleanupFollowUpExchange) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Divider()
+            Text("Your Question").font(.headline)
+            Text(exchange.question)
+            Text("AI Answer").font(.headline)
+            searchStatus(exchange.response.usedWebSearch)
+            Text(exchange.response.result.answer)
+            sourcesView(exchange.response.result.sources)
+        }
+        .font(.callout)
+        .textSelection(.enabled)
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    private func searchStatus(_ searched: Bool) -> some View {
+        Text(searched ? String(localized: "Web search used") : String(localized: "No web search was observed; this result is not verified online."))
+            .font(.caption).foregroundStyle(.secondary)
+    }
+
+    @ViewBuilder
+    private func sourcesView(_ sources: [CleanupAnalysisResult.Source]) -> some View {
+        if !sources.isEmpty {
+            Text("Sources").font(.headline)
+            ForEach(Array(sources.enumerated()), id: \.offset) { _, source in
+                if let link = source.link { Link(source.title, destination: link) }
+            }
+        }
     }
 }

@@ -23,7 +23,7 @@
 
 ![WonderBox overview page showing CPU, memory, disk, network, battery and uptime](docs/screenshots/overview.png)
 
-> Scanning and cleanup run on-device. Optional AI analysis sends the previewed directory summary to your local Codex CLI, which contacts the Codex service and searches the web; file contents are not included.
+> Scanning and cleanup run on-device. Optional AI analysis sends the previewed directory summary, your questions and previous answers to your local Codex CLI, which contacts the Codex service and searches the web. It may use your subscription allowance; file contents are not read automatically.
 
 ## Why WonderBox
 
@@ -66,7 +66,7 @@ Every category expands to item level so you can keep one tool's cache and drop a
 
 ![Item-level selection inside the package cache category](docs/screenshots/cleaner-detail.png)
 
-**AI Analysis** explains an item's deletion impact, recovery options and supporting sources through your existing Codex login. It does not select or delete anything. Model and reasoning effort are configurable in Settings; defaults are `gpt-6.1-sol` and `medium`. See [preview build and verification notes](docs/cleanup-analysis.md).
+**AI Analysis** explains an item's deletion impact, recovery options and supporting sources through your existing Codex login. You can ask follow-up questions in the same window; closing it clears the conversation. It does not select or delete anything. Model and reasoning effort are configurable in Settings; defaults are `gpt-6.1-sol` and `medium`. See [preview build and verification notes](docs/cleanup-analysis.md).
 
 ### Application uninstall
 

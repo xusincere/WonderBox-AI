@@ -243,6 +243,16 @@
         }
       }
     },
+    "AI Answer": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AI 回答"
+          }
+        }
+      }
+    },
     "AI Cleanup Analysis": {
       "localizations": {
         "zh-Hans": {
@@ -253,12 +263,12 @@
         }
       }
     },
-    "AI analysis sends this directory summary to Codex and may use your subscription allowance. File contents are not sent.": {
+    "AI analysis sends the directory summary, your questions and previous answers to Codex and may use your subscription allowance. File contents are not read automatically.": {
       "localizations": {
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "AI 分析会将此目录摘要发送给 Codex，并可能消耗订阅额度，不会发送文件内容。"
+            "value": "AI 分析会将目录摘要、你的问题和此前回答发送给 Codex，并可能消耗订阅额度；不会自动读取文件内容。"
           }
         }
       }
@@ -610,6 +620,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "当前升序，点按切换降序"
+          }
+        }
+      }
+    },
+    "Ask a follow-up question": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "继续提问"
           }
         }
       }
@@ -1658,6 +1678,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "正在查找关联文件…"
+          }
+        }
+      }
+    },
+    "Follow-up question": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "追问内容"
           }
         }
       }
@@ -3052,12 +3082,12 @@
         }
       }
     },
-    "Scanning stays local. AI analysis sends the previewed summary to Codex.": {
+    "Scanning stays local. AI analysis sends the summary, questions and previous answers to Codex.": {
       "localizations": {
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "扫描在本机进行，AI 分析会将预览的摘要发送给 Codex。"
+            "value": "扫描在本机进行，AI 分析会将摘要、问题和此前回答发送给 Codex。"
           }
         }
       }
@@ -3128,6 +3158,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "选中的缓存目录及其全部内容将永久删除；安装包移入废纸篓。"
+          }
+        }
+      }
+    },
+    "Send": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "发送"
           }
         }
       }
@@ -3854,6 +3894,16 @@
         }
       }
     },
+    "View Analysis": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "查看分析"
+          }
+        }
+      }
+    },
     "View Summary": {
       "localizations": {
         "zh-Hans": {
@@ -3973,6 +4023,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mac 将保持唤醒"
+          }
+        }
+      }
+    },
+    "Your Question": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你的问题"
           }
         }
       }
