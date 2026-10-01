@@ -133,6 +133,89 @@ final class CleanupAnalysisTests: XCTestCase {
         } catch { XCTAssertTrue(error is CleanupAnalysisError) }
     }
 
+    func testFollowUpPreservesTwoRoundsOfContextAndUsesSelectedSettings() async throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let analysis = try CleanupAnalysisService.parseOutput(Data(outputEvents().utf8), exitCode: 0)
+        let answer = CleanupFollowUpResult(answer: "LocalHistory needs a backup", sources: [.init(title: "Local history", url: "https://example.com/history")])
+        let events = try events(for: answer, includeSearch: true)
+        let cli = try fakeCLI(in: directory, body: """
+        printf '%s\\n' "$@" > "$0.args"
+        cat > "$0.prompt"
+        printf '%s' '\(events)'
+        """)
+        let question = "Can I restore \"LocalHistory\"?\nDo I need a backup?"
+        var settings = CleanupAnalysisSettings(executablePath: cli.path, model: "chosen-model", effort: "high")
+        let first = try await CleanupAnalysisService().followUp(summary: fixtureSummary, analysis: analysis, history: [], question: question, settings: settings)
+        XCTAssertEqual(first.result.answer, answer.answer)
+        XCTAssertEqual(first.result.sources.first?.url, "https://example.com/history")
+        XCTAssertTrue(first.usedWebSearch)
+        let firstContext = try followUpContext(cli: cli)
+        XCTAssertEqual(firstContext["currentQuestion"] as? String, question)
+        XCTAssertEqual((firstContext["previousExchanges"] as? [Any])?.count, 0)
+        let summary = try XCTUnwrap(firstContext["summary"] as? [String: Any])
+        XCTAssertEqual(summary["path"] as? String, fixtureSummary.path)
+        XCTAssertEqual(summary["deletionMethod"] as? String, "permanentDeletion")
+        let initial = try XCTUnwrap(firstContext["initialAnalysis"] as? [String: Any])
+        XCTAssertEqual((initial["result"] as? [String: Any])?["verdict"] as? String, analysis.result.verdict)
+        var arguments = try String(contentsOf: URL(fileURLWithPath: cli.path + ".args"), encoding: .utf8)
+        for expected in ["chosen-model", "model_reasoning_effort=high", "web_search=live", "read-only", "--ephemeral", "--output-schema"] {
+            XCTAssertTrue(arguments.contains(expected), expected)
+        }
+
+        settings.effort = "xhigh"
+        let secondQuestion = "How should I make that backup?"
+        let second = try await CleanupAnalysisService().followUp(summary: fixtureSummary, analysis: analysis, history: [.init(question: question, response: first)], question: secondQuestion, settings: settings)
+        XCTAssertEqual(second.result.answer, answer.answer)
+        let secondContext = try followUpContext(cli: cli)
+        XCTAssertEqual(secondContext["currentQuestion"] as? String, secondQuestion)
+        let history = try XCTUnwrap(secondContext["previousExchanges"] as? [[String: Any]])
+        XCTAssertEqual(history.count, 1)
+        XCTAssertEqual(history.first?["question"] as? String, question)
+        let previous = try XCTUnwrap(history.first?["response"] as? [String: Any])
+        XCTAssertEqual((previous["result"] as? [String: Any])?["answer"] as? String, first.result.answer)
+        arguments = try String(contentsOf: URL(fileURLWithPath: cli.path + ".args"), encoding: .utf8)
+        XCTAssertTrue(arguments.contains("model_reasoning_effort=xhigh"))
+    }
+
+    func testFollowUpFailureCancellationTimeoutAndSearchObservation() async throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let analysis = try CleanupAnalysisService.parseOutput(Data(outputEvents().utf8), exitCode: 0)
+        let failed = try fakeCLI(in: directory, body: "cat >/dev/null\nprintf '%s\\n' '{\"type\":\"turn.failed\",\"error\":{\"message\":\"quota exceeded\"}}'\nexit 1")
+        do {
+            _ = try await CleanupAnalysisService().followUp(summary: fixtureSummary, analysis: analysis, history: [], question: "Can I recover it?", settings: .init(executablePath: failed.path))
+            XCTFail("Expected failure")
+        } catch { XCTAssertEqual(error.localizedDescription, "quota exceeded") }
+
+        let waiting = try fakeCLI(in: directory, body: "cat >/dev/null\nexec /bin/sleep 20")
+        let task = Task {
+            try await CleanupAnalysisService().followUp(summary: fixtureSummary, analysis: analysis, history: [], question: "Can I recover it?", settings: .init(executablePath: waiting.path))
+        }
+        try await Task.sleep(for: .milliseconds(100))
+        let started = Date()
+        task.cancel()
+        do { _ = try await task.value; XCTFail("Expected cancellation") }
+        catch { XCTAssertTrue(error is CancellationError) }
+        XCTAssertLessThanOrEqual(Date().timeIntervalSince(started), 5)
+        do {
+            _ = try await CleanupAnalysisService().followUp(summary: fixtureSummary, analysis: analysis, history: [], question: "Can I recover it?", settings: .init(executablePath: waiting.path), timeout: 0.1)
+            XCTFail("Expected timeout")
+        } catch { XCTAssertTrue(error is CleanupAnalysisError) }
+
+        let events = try events(for: CleanupFollowUpResult(answer: "A backup is needed", sources: []), includeSearch: false)
+        let noSearch = try fakeCLI(in: directory, body: "cat >/dev/null\nprintf '%s' '\(events)'")
+        let response = try await CleanupAnalysisService().followUp(summary: fixtureSummary, analysis: analysis, history: [], question: "Can I recover it?", settings: .init(executablePath: noSearch.path))
+        XCTAssertFalse(response.usedWebSearch)
+    }
+
+    private func followUpContext(cli: URL) throws -> [String: Any] {
+        let prompt = try String(contentsOf: URL(fileURLWithPath: cli.path + ".prompt"), encoding: .utf8)
+        XCTAssertTrue(prompt.contains("Correct earlier mistakes"))
+        let payload = try XCTUnwrap(prompt.components(separatedBy: "Conversation context:\n").last)
+        return try XCTUnwrap(JSONSerialization.jsonObject(with: Data(payload.utf8)) as? [String: Any])
+    }
+
     private var fixtureSummary: CleanupAnalysisSummary {
         .init(path: "~/Library/Caches/JetBrains", category: "App Caches", deletionMethod: .permanentDeletion, sizeBytes: 12_000, directories: ["GoLand2026.2/LocalHistory"], applications: [], notes: [])
     }
@@ -147,6 +230,10 @@ final class CleanupAnalysisTests: XCTestCase {
 
     private func outputEvents(includeSearch: Bool = true) throws -> String {
         let result = CleanupAnalysisResult(verdict: "Deleting this directory loses local history", entries: [.init(path: "LocalHistory", purpose: "Local edits", impact: "History is lost", recovery: "Cannot rebuild history")], recommendation: "Use the IDE cleanup", uncertainty: "Custom paths are unknown", sources: [.init(title: "Documentation", url: "https://example.com/docs")])
+        return try events(for: result, includeSearch: includeSearch)
+    }
+
+    private func events<T: Encodable>(for result: T, includeSearch: Bool) throws -> String {
         let resultText = String(decoding: try JSONEncoder().encode(result), as: UTF8.self)
         var events: [[String: Any]] = []
         if includeSearch { events.append(["type": "item.completed", "item": ["type": "web_search"]]) }
