@@ -31,6 +31,7 @@ if [[ "${PREVIEW:-0}" == "1" ]]; then
   /usr/libexec/PlistBuddy -c "Set :CFBundleDisplayName WonderBox AI Preview" "$CONTENTS/Info.plist"
 fi
 cp "Sources/WonderBox/Resources/PrivacyInfo.xcprivacy" "$CONTENTS/Resources/PrivacyInfo.xcprivacy"
+cp "LICENSE" "$CONTENTS/Resources/LICENSE"
 cp "Sources/WonderBox/Resources/com.wondercraft.WonderBox.FanHelper.plist" "$CONTENTS/Resources/com.wondercraft.WonderBox.FanHelper.plist"
 
 # String catalogs → <language>.lproj/Localizable.strings; the app resolves them through Bundle.main.
